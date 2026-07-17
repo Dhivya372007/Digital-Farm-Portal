@@ -1,0 +1,3 @@
+import { Table } from '../common/Table';
+import { Badge } from '../common/Badge';
+export const WithdrawalTable = ({ rows }) => <Table columns={['Animal', 'Drug', 'Days Remaining', 'Status']} >{rows.map((row) => <tr key={row.animal.id} className="transition-colors duration-150 hover:bg-gray-50"><td className="px-5 py-4 text-sm font-medium">{row.animal.id}</td><td className="px-5 py-4 text-sm text-text-secondary">{row.drug?.name || '—'}</td><td className="px-5 py-4 text-sm text-text-secondary">{row.administration.remainingDays}</td><td className="px-5 py-4"><Badge variant="withdrawal">Withdrawal</Badge></td></tr>)}</Table>;

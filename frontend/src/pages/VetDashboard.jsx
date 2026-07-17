@@ -1,0 +1,11 @@
+import { useEffect, useState } from 'react';
+import { CalendarDays, ClipboardList, PawPrint, Stethoscope } from 'lucide-react';
+import PageHeader from '../components/common/PageHeader';
+import { LoadingSkeleton } from '../components/common/LoadingSkeleton';
+import { Card } from '../components/common/Card';
+import { Badge } from '../components/common/Badge';
+import { SummaryCard } from '../components/dashboard/SummaryCard';
+import { consultationService } from '../services/consultationService';
+import { animalService } from '../services/animalService';
+import { formatDate } from '../utils/dateHelpers';
+export default function VetDashboard() { const [state, setState] = useState(null); useEffect(() => { Promise.all([consultationService.getAppointments(), animalService.getAnimals()]).then(([appointments, animals]) => setState({ appointments: appointments.data, animals: animals.data })); }, []); if (!state) return <LoadingSkeleton variant="dashboard"/>; const pending = state.appointments.filter((item) => item.status === 'Pending'); return <div className="space-y-8"><PageHeader title="Vet Dashboard" subtitle="Appointments and assigned livestock."/><div className="grid grid-cols-4 gap-6"><SummaryCard icon={CalendarDays} value={state.appointments.length} label="Today's Appointments"/><SummaryCard icon={ClipboardList} value={pending.length} label="Pending Requests" color="text-warning"/><SummaryCard icon={PawPrint} value={state.animals.length} label="Animals Assigned"/><SummaryCard icon={Stethoscope} value={state.appointments.filter((item) => item.status === 'Completed').length} label="Recent Consultations" color="text-success"/></div><Card><h2 className="text-xl font-semibold">Appointment Queue</h2><div className="mt-5 divide-y divide-gray-100">{state.appointments.map((appointment) => <div key={appointment.id} className="flex items-center justify-between py-4"><div><p className="text-sm font-medium">{appointment.farmer}</p><p className="mt-1 text-sm text-text-secondary">{appointment.reason} · {formatDate(appointment.preferredDate)}</p></div><Badge variant={appointment.status === 'Pending' ? 'warning' : 'success'}>{appointment.status}</Badge></div>)}</div></Card></div>; }

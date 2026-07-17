@@ -1,0 +1,4 @@
+import { AlertTriangle, CheckCircle2, Info, X, XCircle } from 'lucide-react';
+const icons = { success: CheckCircle2, info: Info, warning: AlertTriangle, danger: XCircle };
+const colors = { success: 'text-success', info: 'text-primary', warning: 'text-warning', danger: 'text-danger' };
+export default function Toast({ toast, onDismiss }) { if (!toast) return null; const Icon = icons[toast.type] || Info; return <div className="fixed right-6 top-6 z-50 flex w-96 animate-[slide-down_200ms_ease-in-out] items-start gap-3 rounded-2xl border border-border bg-white p-4 shadow-lg" role="status"><Icon className={`mt-0.5 h-5 w-5 ${colors[toast.type] || colors.info}`}/><p className="flex-1 text-sm font-medium text-text-primary">{toast.message}</p><button onClick={onDismiss} aria-label="Dismiss notification" className="text-text-secondary"><X className="h-4 w-4"/></button></div>; }

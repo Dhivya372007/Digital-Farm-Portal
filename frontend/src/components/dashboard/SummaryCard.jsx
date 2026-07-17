@@ -1,0 +1,2 @@
+import { Card } from '../common/Card';
+export const SummaryCard = ({ icon: Icon, value, label, color = 'text-primary' }) => <Card className="transition-shadow duration-150 hover:shadow-md"><div className="flex items-start justify-between"><div><p className="text-3xl font-bold text-text-primary">{value}</p><p className="mt-1 text-sm text-text-secondary">{label}</p></div><Icon className={`h-6 w-6 ${color}`}/></div></Card>;

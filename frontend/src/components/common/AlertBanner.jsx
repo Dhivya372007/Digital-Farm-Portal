@@ -1,0 +1,2 @@
+import { AlertTriangle, X } from 'lucide-react';
+export const AlertBanner = ({ alert, onDismiss }) => <div className="flex items-start gap-3 rounded-2xl border border-red-200 bg-red-50 p-5 text-danger"><AlertTriangle className="mt-0.5 h-5 w-5"/><div className="flex-1"><h3 className="text-sm font-semibold">{alert.title}</h3><p className="mt-1 text-sm">{alert.message}</p></div><button onClick={() => onDismiss(alert.id)} aria-label="Dismiss alert"><X className="h-5 w-5"/></button></div>;

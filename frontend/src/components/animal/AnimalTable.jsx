@@ -1,0 +1,5 @@
+import { Link } from 'react-router-dom';
+import { Eye } from 'lucide-react';
+import { Table } from '../common/Table';
+import { AnimalStatusBadge } from './AnimalStatusBadge';
+export const AnimalTable = ({ animals, role }) => <Table columns={['Animal ID', 'Species', 'Breed', 'Age', 'Gender', 'Status', 'Actions']}>{animals.map((animal) => <tr key={animal.id} className="transition-colors duration-150 hover:bg-gray-50"><td className="px-5 py-4 text-sm font-medium text-text-primary">{animal.id}</td><td className="px-5 py-4 text-sm text-text-secondary">{animal.species}</td><td className="px-5 py-4 text-sm text-text-secondary">{animal.breed}</td><td className="px-5 py-4 text-sm text-text-secondary">{animal.age}</td><td className="px-5 py-4 text-sm text-text-secondary">{animal.gender}</td><td className="px-5 py-4"><AnimalStatusBadge status={animal.currentStatus}/></td><td className="px-5 py-4"><Link to={`/${role}/animals/${animal.id}`} className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-primary-700"><Eye className="h-4 w-4"/>View Profile</Link></td></tr>)}</Table>;
