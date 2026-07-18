@@ -15,14 +15,15 @@ const navConfig = {
     farmer: [
         { label: 'Dashboard', icon: LayoutDashboard, to: '/farmer/dashboard' },
         { label: 'Animals', icon: PawPrint, to: '/farmer/animals' },
-        { label: 'Drugs', icon: Pill, to: '/farmer/drugs' },
+        { label: 'Drug Database', icon: Pill, to: '/farmer/drugs/database' },
+        { label: 'Drug Administration', icon: Pill, to: '/farmer/drugs/administration' },
         { label: 'Consultation', icon: MessageSquare, to: '/farmer/consultation' },
     ],
     vet: [
         { label: 'Dashboard', icon: LayoutDashboard, to: '/vet/dashboard' },
         { label: 'Appointments', icon: Calendar, to: '/vet/appointments' },
         { label: 'Animals', icon: PawPrint, to: '/vet/animals' },
-        { label: 'Drugs', icon: Pill, to: '/vet/drugs' },
+        { label: 'Drug Database', icon: Pill, to: '/vet/drugs/database' },
     ],
     admin: [
         { label: 'Dashboard', icon: LayoutDashboard, to: '/admin/dashboard' },

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { Bell } from 'lucide-react';
 
@@ -10,6 +10,7 @@ const routeTitles = {
     drugs: 'Drugs',
     consultation: 'Consultation',
     appointments: 'Appointments',
+    settings: 'Settings',
 };
 
 function getPageTitle(pathname) {
@@ -28,6 +29,7 @@ function getPageTitle(pathname) {
 export default function Navbar() {
     const { user } = useAuth();
     const location = useLocation();
+    const navigate = useNavigate();
     const pageTitle = getPageTitle(location.pathname);
 
     const username = user?.username || 'User';
@@ -71,11 +73,11 @@ export default function Navbar() {
                         </div>
 
                         {/* Initials Avatar */}
-                        <div className="w-9 h-9 rounded-full bg-primary-50 border border-primary-100 flex items-center justify-center">
+                        <button onClick={() => navigate(`/${role}/settings`)} aria-label="Open settings" className="w-9 h-9 rounded-full bg-primary-50 border border-primary-100 flex items-center justify-center transition-colors hover:bg-primary-100">
                             <span className="text-[12px] font-semibold text-primary-600">
                                 {initials}
                             </span>
-                        </div>
+                        </button>
                     </div>
                 </div>
             </div>

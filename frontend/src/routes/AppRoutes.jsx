@@ -10,6 +10,7 @@ import DrugAdministration from '../pages/DrugAdministration';
 import AlertsPage from '../pages/AlertsPage';
 import VetDashboard from '../pages/VetDashboard';
 import AdminDashboard from '../pages/AdminDashboard';
+import Settings from '../pages/Settings';
 import Sidebar from '../components/common/Sidebar';
 import Navbar from '../components/common/Navbar';
 
@@ -61,8 +62,11 @@ export default function AppRoutes() {
                 <Route path="dashboard" element={<FarmerDashboard />} />
                 <Route path="animals" element={<Register />} />
                 <Route path="animals/:animalId" element={<AnimalProfile />} />
-                <Route path="drugs" element={<DrugAdministration />} />
+                <Route path="drugs" element={<Navigate to="database" replace />} />
+                <Route path="drugs/database" element={<DrugAdministration page="database" />} />
+                <Route path="drugs/administration" element={<DrugAdministration page="administration" />} />
                 <Route path="consultation" element={<AlertsPage />} />
+                <Route path="settings" element={<Settings />} />
             </Route>
 
             {/* Vet Routes */}
@@ -72,13 +76,16 @@ export default function AppRoutes() {
                 <Route path="appointments" element={<AlertsPage />} />
                 <Route path="animals" element={<Register />} />
                 <Route path="animals/:animalId" element={<AnimalProfile />} />
-                <Route path="drugs" element={<DrugAdministration />} />
+                <Route path="drugs" element={<Navigate to="database" replace />} />
+                <Route path="drugs/database" element={<DrugAdministration page="database" />} />
+                <Route path="settings" element={<Settings />} />
             </Route>
 
             {/* Admin Routes */}
             <Route path="/admin" element={<RoleLayout allowedRole="admin" />}>
                 <Route index element={<Navigate to="/admin/dashboard" replace />} />
                 <Route path="dashboard" element={<AdminDashboard />} />
+                <Route path="settings" element={<Settings />} />
             </Route>
 
             {/* Fallback */}
