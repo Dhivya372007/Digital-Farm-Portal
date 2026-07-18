@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Login from '../pages/Login';
+import RegisterUser from '../pages/RegisterUser';
 import FarmerDashboard from '../pages/FarmerDashboard';
 import Register from '../pages/Register';
 import AnimalProfile from '../pages/AnimalProfile';
@@ -52,6 +53,7 @@ export default function AppRoutes() {
         <Routes>
             {/* Public */}
             <Route path="/" element={<Login />} />
+            <Route path="/register-user" element={<RegisterUser />} />
 
             {/* Farmer Routes */}
             <Route path="/farmer" element={<RoleLayout allowedRole="farmer" />}>
