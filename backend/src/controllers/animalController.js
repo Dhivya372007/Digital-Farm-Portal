@@ -1,8 +1,8 @@
+import animalRepository from "../repositories/animalRepository.js";
 import {
     validateRequiredFields,
     validationErrorResponse
 } from "../utils/validation.js";
-
 
 /*
 |--------------------------------------------------------------------------
@@ -14,29 +14,27 @@ const getAllAnimals = async (req, res) => {
 
     try {
 
+        const animals = await animalRepository.getAllAnimals();
+
         return res.status(200).json({
 
             success: true,
 
-            message:
-                "Animals fetched successfully",
+            message: "Animals fetched successfully",
 
-            data: []
+            data: animals
 
         });
 
-
-    } catch(error) {
+    } catch (error) {
 
         return res.status(500).json({
 
-            success:false,
+            success: false,
 
-            message:
-                error.message ||
-                "Unable to fetch animals",
+            message: error.message || "Unable to fetch animals",
 
-            data:null
+            data: null
 
         });
 
@@ -52,19 +50,13 @@ const getAllAnimals = async (req, res) => {
 |--------------------------------------------------------------------------
 */
 
-const getAnimalById = async (req,res)=>{
-
+const getAnimalById = async (req, res) => {
 
     try {
 
+        const { id } = req.params;
 
-        const {
-            id
-        } = req.params;
-
-
-
-        if(!id){
+        if (!id) {
 
             return validationErrorResponse(
                 res,
@@ -75,47 +67,31 @@ const getAnimalById = async (req,res)=>{
 
         }
 
-
+        const animal = await animalRepository.getAnimalById(id);
 
         return res.status(200).json({
 
-            success:true,
+            success: true,
 
-            message:
-                "Animal fetched successfully",
+            message: "Animal fetched successfully",
 
-            data:{
-
-                animal_id:id,
-
-                tag_number:"TAG001",
-
-                species:"Cattle"
-
-            }
+            data: animal
 
         });
 
-
-
-    }catch(error){
-
+    } catch (error) {
 
         return res.status(500).json({
 
-            success:false,
+            success: false,
 
-            message:
-                error.message ||
-                "Unable to fetch animal",
+            message: error.message || "Unable to fetch animal",
 
-            data:null
+            data: null
 
         });
 
-
     }
-
 
 };
 
@@ -127,24 +103,20 @@ const getAnimalById = async (req,res)=>{
 |--------------------------------------------------------------------------
 */
 
-const createAnimal = async(req,res)=>{
-
+const createAnimal = async (req, res) => {
 
     try {
 
+        const validation = validateRequiredFields(
+            req.body,
+            [
+                "owner_id",
+                "animal_tag",
+                "species"
+            ]
+        );
 
-        const validation =
-            validateRequiredFields(
-                req.body,
-                [
-                    "tag_number",
-                    "species"
-                ]
-            );
-
-
-
-        if(!validation.valid){
+        if (!validation.valid) {
 
             return validationErrorResponse(
                 res,
@@ -153,52 +125,31 @@ const createAnimal = async(req,res)=>{
 
         }
 
-
-
-        const {
-            tag_number,
-            species
-        } = req.body;
-
-
+        const animal = await animalRepository.createAnimal(req.body);
 
         return res.status(201).json({
 
-            success:true,
+            success: true,
 
-            message:
-                "Animal created successfully",
+            message: "Animal created successfully",
 
-            data:{
-
-                tag_number,
-
-                species
-
-            }
+            data: animal
 
         });
 
-
-
-    }catch(error){
-
+    } catch (error) {
 
         return res.status(500).json({
 
-            success:false,
+            success: false,
 
-            message:
-                error.message ||
-                "Unable to create animal",
+            message: error.message || "Unable to create animal",
 
-            data:null
+            data: null
 
         });
 
-
     }
-
 
 };
 
@@ -210,19 +161,13 @@ const createAnimal = async(req,res)=>{
 |--------------------------------------------------------------------------
 */
 
-const updateAnimal = async(req,res)=>{
-
+const updateAnimal = async (req, res) => {
 
     try {
 
+        const { id } = req.params;
 
-        const {
-            id
-        } = req.params;
-
-
-
-        if(!id){
+        if (!id) {
 
             return validationErrorResponse(
                 res,
@@ -233,43 +178,34 @@ const updateAnimal = async(req,res)=>{
 
         }
 
-
+        const animal = await animalRepository.updateAnimal(
+            id,
+            req.body
+        );
 
         return res.status(200).json({
 
-            success:true,
+            success: true,
 
-            message:
-                "Animal updated successfully",
+            message: "Animal updated successfully",
 
-            data:{
-
-                animal_id:id
-
-            }
+            data: animal
 
         });
 
-
-
-    }catch(error){
-
+    } catch (error) {
 
         return res.status(500).json({
 
-            success:false,
+            success: false,
 
-            message:
-                error.message ||
-                "Unable to update animal",
+            message: error.message || "Unable to update animal",
 
-            data:null
+            data: null
 
         });
 
-
     }
-
 
 };
 
@@ -281,19 +217,13 @@ const updateAnimal = async(req,res)=>{
 |--------------------------------------------------------------------------
 */
 
-const deleteAnimal = async(req,res)=>{
-
+const deleteAnimal = async (req, res) => {
 
     try {
 
+        const { id } = req.params;
 
-        const {
-            id
-        } = req.params;
-
-
-
-        if(!id){
+        if (!id) {
 
             return validationErrorResponse(
                 res,
@@ -304,43 +234,31 @@ const deleteAnimal = async(req,res)=>{
 
         }
 
-
+        const animal = await animalRepository.deleteAnimal(id);
 
         return res.status(200).json({
 
-            success:true,
+            success: true,
 
-            message:
-                "Animal deleted successfully",
+            message: "Animal deleted successfully",
 
-            data:{
-
-                animal_id:id
-
-            }
+            data: animal
 
         });
 
-
-
-    }catch(error){
-
+    } catch (error) {
 
         return res.status(500).json({
 
-            success:false,
+            success: false,
 
-            message:
-                error.message ||
-                "Unable to delete animal",
+            message: error.message || "Unable to delete animal",
 
-            data:null
+            data: null
 
         });
 
-
     }
-
 
 };
 

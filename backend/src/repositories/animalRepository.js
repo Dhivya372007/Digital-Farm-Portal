@@ -1,16 +1,24 @@
+import supabase from "../config/db.js";
+
 /*
 |--------------------------------------------------------------------------
 | Animal Repository
 |--------------------------------------------------------------------------
 | Database operations for animals.
-| Supabase integration will be added later.
 |--------------------------------------------------------------------------
 */
 
-
 const getAllAnimals = async () => {
 
-    return [];
+    const { data, error } = await supabase
+        .from("animals")
+        .select("*");
+
+    if (error) {
+        throw new Error(error.message);
+    }
+
+    return data;
 
 };
 
@@ -18,11 +26,17 @@ const getAllAnimals = async () => {
 
 const getAnimalById = async (id) => {
 
-    return {
+    const { data, error } = await supabase
+        .from("animals")
+        .select("*")
+        .eq("animal_id", id)
+        .single();
 
-        animal_id: id
+    if (error) {
+        throw new Error(error.message);
+    }
 
-    };
+    return data;
 
 };
 
@@ -30,7 +44,17 @@ const getAnimalById = async (id) => {
 
 const createAnimal = async (animalData) => {
 
-    return animalData;
+    const { data, error } = await supabase
+        .from("animals")
+        .insert(animalData)
+        .select()
+        .single();
+
+    if (error) {
+        throw new Error(error.message);
+    }
+
+    return data;
 
 };
 
@@ -38,13 +62,18 @@ const createAnimal = async (animalData) => {
 
 const updateAnimal = async (id, animalData) => {
 
-    return {
+    const { data, error } = await supabase
+        .from("animals")
+        .update(animalData)
+        .eq("animal_id", id)
+        .select()
+        .single();
 
-        animal_id: id,
+    if (error) {
+        throw new Error(error.message);
+    }
 
-        ...animalData
-
-    };
+    return data;
 
 };
 
@@ -52,11 +81,18 @@ const updateAnimal = async (id, animalData) => {
 
 const deleteAnimal = async (id) => {
 
-    return {
+    const { data, error } = await supabase
+        .from("animals")
+        .delete()
+        .eq("animal_id", id)
+        .select()
+        .single();
 
-        animal_id: id
+    if (error) {
+        throw new Error(error.message);
+    }
 
-    };
+    return data;
 
 };
 

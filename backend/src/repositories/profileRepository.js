@@ -2,16 +2,17 @@ import supabase from "../config/db.js";
 
 /*
 |--------------------------------------------------------------------------
-| Drug Repository
+| Profile Repository
 |--------------------------------------------------------------------------
-| Database operations for drugs.
+| Database operations for the profiles table.
+| Authentication is handled separately.
 |--------------------------------------------------------------------------
 */
 
-const getAllDrugs = async () => {
+const getAllProfiles = async () => {
 
     const { data, error } = await supabase
-        .from("drugs")
+        .from("profiles")
         .select("*");
 
     if (error) {
@@ -24,12 +25,12 @@ const getAllDrugs = async () => {
 
 
 
-const getDrugById = async (id) => {
+const getProfileById = async (id) => {
 
     const { data, error } = await supabase
-        .from("drugs")
+        .from("profiles")
         .select("*")
-        .eq("drug_id", id)
+        .eq("id", id)
         .single();
 
     if (error) {
@@ -42,11 +43,11 @@ const getDrugById = async (id) => {
 
 
 
-const createDrug = async (drugData) => {
+const createProfile = async (profileData) => {
 
     const { data, error } = await supabase
-        .from("drugs")
-        .insert(drugData)
+        .from("profiles")
+        .insert(profileData)
         .select()
         .single();
 
@@ -60,12 +61,12 @@ const createDrug = async (drugData) => {
 
 
 
-const updateDrug = async (id, drugData) => {
+const updateProfile = async (id, profileData) => {
 
     const { data, error } = await supabase
-        .from("drugs")
-        .update(drugData)
-        .eq("drug_id", id)
+        .from("profiles")
+        .update(profileData)
+        .eq("id", id)
         .select()
         .single();
 
@@ -79,12 +80,12 @@ const updateDrug = async (id, drugData) => {
 
 
 
-const deleteDrug = async (id) => {
+const deleteProfile = async (id) => {
 
     const { data, error } = await supabase
-        .from("drugs")
+        .from("profiles")
         .delete()
-        .eq("drug_id", id)
+        .eq("id", id)
         .select()
         .single();
 
@@ -100,14 +101,14 @@ const deleteDrug = async (id) => {
 
 export default {
 
-    getAllDrugs,
+    getAllProfiles,
 
-    getDrugById,
+    getProfileById,
 
-    createDrug,
+    createProfile,
 
-    updateDrug,
+    updateProfile,
 
-    deleteDrug
+    deleteProfile
 
 };

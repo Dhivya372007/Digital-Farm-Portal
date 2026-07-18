@@ -1,8 +1,8 @@
+import drugRepository from "../repositories/drugRepository.js";
 import {
     validateRequiredFields,
     validationErrorResponse
 } from "../utils/validation.js";
-
 
 /*
 |--------------------------------------------------------------------------
@@ -14,29 +14,27 @@ const getAllDrugs = async (req, res) => {
 
     try {
 
+        const drugs = await drugRepository.getAllDrugs();
+
         return res.status(200).json({
 
             success: true,
 
-            message:
-                "Drugs fetched successfully",
+            message: "Drugs fetched successfully",
 
-            data: []
+            data: drugs
 
         });
 
-
-    } catch(error) {
+    } catch (error) {
 
         return res.status(500).json({
 
-            success:false,
+            success: false,
 
-            message:
-                error.message ||
-                "Unable to fetch drugs",
+            message: error.message || "Unable to fetch drugs",
 
-            data:null
+            data: null
 
         });
 
@@ -52,16 +50,13 @@ const getAllDrugs = async (req, res) => {
 |--------------------------------------------------------------------------
 */
 
-const getDrugById = async (req,res)=>{
+const getDrugById = async (req, res) => {
 
     try {
 
-        const {
-            id
-        } = req.params;
+        const { id } = req.params;
 
-
-        if(!id){
+        if (!id) {
 
             return validationErrorResponse(
                 res,
@@ -72,38 +67,27 @@ const getDrugById = async (req,res)=>{
 
         }
 
+        const drug = await drugRepository.getDrugById(id);
 
         return res.status(200).json({
 
-            success:true,
+            success: true,
 
-            message:
-                "Drug fetched successfully",
+            message: "Drug fetched successfully",
 
-            data:{
-
-                drug_id:id,
-
-                drug_name:"Amoxicillin",
-
-                category:"Antibiotic"
-
-            }
+            data: drug
 
         });
 
-
-    } catch(error) {
+    } catch (error) {
 
         return res.status(500).json({
 
-            success:false,
+            success: false,
 
-            message:
-                error.message ||
-                "Unable to fetch drug",
+            message: error.message || "Unable to fetch drug",
 
-            data:null
+            data: null
 
         });
 
@@ -119,23 +103,18 @@ const getDrugById = async (req,res)=>{
 |--------------------------------------------------------------------------
 */
 
-const createDrug = async(req,res)=>{
+const createDrug = async (req, res) => {
 
     try {
 
+        const validation = validateRequiredFields(
+            req.body,
+            [
+                "drug_name"
+            ]
+        );
 
-        const validation =
-            validateRequiredFields(
-                req.body,
-                [
-                    "drug_name",
-                    "category"
-                ]
-            );
-
-
-
-        if(!validation.valid){
+        if (!validation.valid) {
 
             return validationErrorResponse(
                 res,
@@ -144,46 +123,27 @@ const createDrug = async(req,res)=>{
 
         }
 
-
-
-        const {
-            drug_name,
-            category
-        } = req.body;
-
-
+        const drug = await drugRepository.createDrug(req.body);
 
         return res.status(201).json({
 
-            success:true,
+            success: true,
 
-            message:
-                "Drug created successfully",
+            message: "Drug created successfully",
 
-            data:{
-
-                drug_name,
-
-                category
-
-            }
+            data: drug
 
         });
 
-
-
-    } catch(error) {
-
+    } catch (error) {
 
         return res.status(500).json({
 
-            success:false,
+            success: false,
 
-            message:
-                error.message ||
-                "Unable to create drug",
+            message: error.message || "Unable to create drug",
 
-            data:null
+            data: null
 
         });
 
@@ -199,18 +159,13 @@ const createDrug = async(req,res)=>{
 |--------------------------------------------------------------------------
 */
 
-const updateDrug = async(req,res)=>{
+const updateDrug = async (req, res) => {
 
     try {
 
+        const { id } = req.params;
 
-        const {
-            id
-        } = req.params;
-
-
-
-        if(!id){
+        if (!id) {
 
             return validationErrorResponse(
                 res,
@@ -221,37 +176,27 @@ const updateDrug = async(req,res)=>{
 
         }
 
-
+        const drug = await drugRepository.updateDrug(id, req.body);
 
         return res.status(200).json({
 
-            success:true,
+            success: true,
 
-            message:
-                "Drug updated successfully",
+            message: "Drug updated successfully",
 
-            data:{
-
-                drug_id:id
-
-            }
+            data: drug
 
         });
 
-
-
-    } catch(error) {
-
+    } catch (error) {
 
         return res.status(500).json({
 
-            success:false,
+            success: false,
 
-            message:
-                error.message ||
-                "Unable to update drug",
+            message: error.message || "Unable to update drug",
 
-            data:null
+            data: null
 
         });
 
@@ -267,18 +212,13 @@ const updateDrug = async(req,res)=>{
 |--------------------------------------------------------------------------
 */
 
-const deleteDrug = async(req,res)=>{
+const deleteDrug = async (req, res) => {
 
     try {
 
+        const { id } = req.params;
 
-        const {
-            id
-        } = req.params;
-
-
-
-        if(!id){
+        if (!id) {
 
             return validationErrorResponse(
                 res,
@@ -289,37 +229,27 @@ const deleteDrug = async(req,res)=>{
 
         }
 
-
+        const drug = await drugRepository.deleteDrug(id);
 
         return res.status(200).json({
 
-            success:true,
+            success: true,
 
-            message:
-                "Drug deleted successfully",
+            message: "Drug deleted successfully",
 
-            data:{
-
-                drug_id:id
-
-            }
+            data: drug
 
         });
 
-
-
-    } catch(error) {
-
+    } catch (error) {
 
         return res.status(500).json({
 
-            success:false,
+            success: false,
 
-            message:
-                error.message ||
-                "Unable to delete drug",
+            message: error.message || "Unable to delete drug",
 
-            data:null
+            data: null
 
         });
 

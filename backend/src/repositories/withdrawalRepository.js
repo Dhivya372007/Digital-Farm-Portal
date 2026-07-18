@@ -1,27 +1,34 @@
+import supabase from "../config/db.js";
+
 /*
 |--------------------------------------------------------------------------
 | Withdrawal Repository
 |--------------------------------------------------------------------------
 */
 
+const getWithdrawalRuleByDrugId = async (drugId) => {
 
-const getWithdrawalRuleByDrugId = async (drug_id) => {
+    const { data, error } = await supabase
+        .from("withdrawal_rules")
+        .select(`
+            withdrawal_days,
+            residue_limit,
+            drug_id,
+            drugs (
+                drug_name,
+                category
+            )
+        `)
+        .eq("drug_id", drugId)
+        .single();
 
+    if (error) {
+        throw new Error(error.message);
+    }
 
-    return {
-
-        drug_id,
-
-        withdrawal_days: 7,
-
-        residue_limit: "0.01 mg/kg"
-
-    };
-
+    return data;
 
 };
-
-
 
 export default {
 

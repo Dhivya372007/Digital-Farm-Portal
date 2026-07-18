@@ -2,16 +2,16 @@ import supabase from "../config/db.js";
 
 /*
 |--------------------------------------------------------------------------
-| Drug Repository
+| Drug Entry Repository
 |--------------------------------------------------------------------------
-| Database operations for drugs.
+| Database operations for the drug_entries table.
 |--------------------------------------------------------------------------
 */
 
-const getAllDrugs = async () => {
+const getAllDrugEntries = async () => {
 
     const { data, error } = await supabase
-        .from("drugs")
+        .from("drug_entries")
         .select("*");
 
     if (error) {
@@ -24,12 +24,12 @@ const getAllDrugs = async () => {
 
 
 
-const getDrugById = async (id) => {
+const getDrugEntryById = async (id) => {
 
     const { data, error } = await supabase
-        .from("drugs")
+        .from("drug_entries")
         .select("*")
-        .eq("drug_id", id)
+        .eq("entry_id", id)
         .single();
 
     if (error) {
@@ -42,11 +42,11 @@ const getDrugById = async (id) => {
 
 
 
-const createDrug = async (drugData) => {
+const createDrugEntry = async (entryData) => {
 
     const { data, error } = await supabase
-        .from("drugs")
-        .insert(drugData)
+        .from("drug_entries")
+        .insert(entryData)
         .select()
         .single();
 
@@ -60,12 +60,12 @@ const createDrug = async (drugData) => {
 
 
 
-const updateDrug = async (id, drugData) => {
+const updateDrugEntry = async (id, entryData) => {
 
     const { data, error } = await supabase
-        .from("drugs")
-        .update(drugData)
-        .eq("drug_id", id)
+        .from("drug_entries")
+        .update(entryData)
+        .eq("entry_id", id)
         .select()
         .single();
 
@@ -79,12 +79,12 @@ const updateDrug = async (id, drugData) => {
 
 
 
-const deleteDrug = async (id) => {
+const deleteDrugEntry = async (id) => {
 
     const { data, error } = await supabase
-        .from("drugs")
+        .from("drug_entries")
         .delete()
-        .eq("drug_id", id)
+        .eq("entry_id", id)
         .select()
         .single();
 
@@ -100,14 +100,14 @@ const deleteDrug = async (id) => {
 
 export default {
 
-    getAllDrugs,
+    getAllDrugEntries,
 
-    getDrugById,
+    getDrugEntryById,
 
-    createDrug,
+    createDrugEntry,
 
-    updateDrug,
+    updateDrugEntry,
 
-    deleteDrug
+    deleteDrugEntry
 
 };
