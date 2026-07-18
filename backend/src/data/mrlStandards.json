@@ -1,0 +1,30 @@
+[
+  {
+    "drug_id": 1,
+    "drug_name": "Amoxicillin",
+    "category": "Antibiotic",
+    "withdrawal_days": 7,
+    "residue_limit": "0.01 mg/kg"
+  },
+  {
+    "drug_id": 2,
+    "drug_name": "Oxytetracycline",
+    "category": "Antibiotic",
+    "withdrawal_days": 14,
+    "residue_limit": "0.1 mg/kg"
+  },
+  {
+    "drug_id": 3,
+    "drug_name": "Ivermectin",
+    "category": "Antiparasitic",
+    "withdrawal_days": 28,
+    "residue_limit": "0.02 mg/kg"
+  },
+  {
+    "drug_id": 4,
+    "drug_name": "Penicillin",
+    "category": "Antibiotic",
+    "withdrawal_days": 10,
+    "residue_limit": "0.05 mg/kg"
+  }
+]
